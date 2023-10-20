@@ -4,6 +4,7 @@ CREATE TABLE customer (
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(20),
     birth_date DATE,
+    age INT,
     gender VARCHAR(10),
     cpf VARCHAR(15) UNIQUE,
     cep VARCHAR(10),

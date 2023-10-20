@@ -26,9 +26,11 @@ public class Customer {
     private String email;
     private String phone;
     private LocalDate birthDate;
+    private int age;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String cpf;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<PaymentDocument> paymentDocuments;
     private String cep;
     private String country;
