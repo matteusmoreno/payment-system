@@ -58,4 +58,11 @@ public class PaymentDocumentController {
         var paymentDocument = paymentDocumentService.refund(request.id());
         return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
     }
+
+    @PutMapping("/cancel")
+    @Transactional
+    public ResponseEntity cancel(@RequestBody @Valid IdPaymentDocumentRequest request) {
+        var paymentDocument = paymentDocumentService.cancel(request.id());
+        return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
 }

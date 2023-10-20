@@ -67,4 +67,13 @@ public class PaymentDocumentService {
 
         return paymentDocument;
     }
+
+    public PaymentDocument cancel(UUID id) {
+        PaymentDocument paymentDocument = paymentDocumentRepository.findById(id).orElseThrow();
+        paymentDocument.setStatus(PaymentStatus.CANCELLED);
+
+        paymentDocumentRepository.save(paymentDocument);
+
+        return paymentDocument;
+    }
 }
