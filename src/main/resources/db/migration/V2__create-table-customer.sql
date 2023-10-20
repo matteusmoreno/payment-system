@@ -8,7 +8,6 @@ CREATE TABLE customer (
     gender VARCHAR(10),
     cpf VARCHAR(15) UNIQUE,
     cep VARCHAR(10),
-    country VARCHAR(50),
     state VARCHAR(50),
     city VARCHAR(50),
     neighborhood VARCHAR(50),

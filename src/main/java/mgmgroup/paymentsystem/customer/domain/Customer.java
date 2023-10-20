@@ -33,7 +33,6 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY)
     private List<PaymentDocument> paymentDocuments;
     private String cep;
-    private String country;
     private String state;
     private String city;
     private String neighborhood;
