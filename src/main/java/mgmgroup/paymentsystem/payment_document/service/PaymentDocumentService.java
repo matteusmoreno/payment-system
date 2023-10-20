@@ -5,6 +5,7 @@ import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
+import mgmgroup.paymentsystem.payment_document.validations.PaymentDocumentValidation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,9 +15,11 @@ import java.util.UUID;
 public class PaymentDocumentService {
 
     private final PaymentDocumentRepository paymentDocumentRepository;
+    private final PaymentDocumentValidation paymentDocumentValidation;
 
-    public PaymentDocumentService(PaymentDocumentRepository paymentDocumentRepository) {
+    public PaymentDocumentService(PaymentDocumentRepository paymentDocumentRepository, PaymentDocumentValidation paymentDocumentValidation) {
         this.paymentDocumentRepository = paymentDocumentRepository;
+        this.paymentDocumentValidation = paymentDocumentValidation;
     }
 
     public PaymentDocument create(CreatePaymentDocumentRequest request) {
@@ -52,6 +55,7 @@ public class PaymentDocumentService {
 
     public PaymentDocument pay(UUID id) {
         PaymentDocument paymentDocument = paymentDocumentRepository.findById(id).orElseThrow();
+        paymentDocumentValidation.payValidation(paymentDocument.getStatus());
         paymentDocument.setStatus(PaymentStatus.PAID);
 
         paymentDocumentRepository.save(paymentDocument);
@@ -61,6 +65,7 @@ public class PaymentDocumentService {
 
     public PaymentDocument refund(UUID id) {
         PaymentDocument paymentDocument = paymentDocumentRepository.findById(id).orElseThrow();
+        paymentDocumentValidation.refundValidation(paymentDocument.getStatus());
         paymentDocument.setStatus(PaymentStatus.REFUNDED);
 
         paymentDocumentRepository.save(paymentDocument);
@@ -70,6 +75,7 @@ public class PaymentDocumentService {
 
     public PaymentDocument cancel(UUID id) {
         PaymentDocument paymentDocument = paymentDocumentRepository.findById(id).orElseThrow();
+        paymentDocumentValidation.cancelValidation(paymentDocument.getStatus());
         paymentDocument.setStatus(PaymentStatus.CANCELLED);
 
         paymentDocumentRepository.save(paymentDocument);
