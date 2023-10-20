@@ -7,6 +7,7 @@ import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequ
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 public class PaymentDocumentService {
@@ -29,5 +30,9 @@ public class PaymentDocumentService {
         paymentDocumentRepository.save(paymentDocument);
 
         return paymentDocument;
+    }
+
+    public PaymentDocument details(UUID id) {
+        return paymentDocumentRepository.findById(id).orElseThrow();
     }
 }
