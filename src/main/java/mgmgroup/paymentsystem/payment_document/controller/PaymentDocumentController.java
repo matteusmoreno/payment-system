@@ -51,4 +51,11 @@ public class PaymentDocumentController {
         var paymentDocument = paymentDocumentService.pay(request.id());
         return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
     }
+
+    @PutMapping("/refund")
+    @Transactional
+    public ResponseEntity refund(@RequestBody @Valid IdPaymentDocumentRequest request) {
+        var paymentDocument = paymentDocumentService.refund(request.id());
+        return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
 }

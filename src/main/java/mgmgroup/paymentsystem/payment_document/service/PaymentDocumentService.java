@@ -58,4 +58,13 @@ public class PaymentDocumentService {
 
         return paymentDocument;
     }
+
+    public PaymentDocument refund(UUID id) {
+        PaymentDocument paymentDocument = paymentDocumentRepository.findById(id).orElseThrow();
+        paymentDocument.setStatus(PaymentStatus.REFUNDED);
+
+        paymentDocumentRepository.save(paymentDocument);
+
+        return paymentDocument;
+    }
 }
