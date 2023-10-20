@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.PaymentDocumentDetailsRequest;
+import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.service.PaymentDocumentService;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,13 @@ public class PaymentDocumentController {
     @GetMapping("/details")
     public ResponseEntity details(@RequestBody @Valid PaymentDocumentDetailsRequest request) {
         var paymentDocument = paymentDocumentService.details(request.id());
+        return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
+
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid UpdatePaymentDocumentRequest request) {
+        var paymentDocument = paymentDocumentService.update(request);
         return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
     }
 }

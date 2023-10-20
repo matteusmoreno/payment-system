@@ -4,6 +4,7 @@ import mgmgroup.paymentsystem.payment_document.PaymentDocumentRepository;
 import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
+import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,5 +35,18 @@ public class PaymentDocumentService {
 
     public PaymentDocument details(UUID id) {
         return paymentDocumentRepository.findById(id).orElseThrow();
+    }
+
+    public PaymentDocument update(UpdatePaymentDocumentRequest request) {
+        PaymentDocument paymentDocument = paymentDocumentRepository.findById(request.id()).orElseThrow();
+        paymentDocument.setDateOfPayment(request.dateOfPayment());
+        paymentDocument.setAmount(request.amount());
+        paymentDocument.setPaymentType(request.paymentType());
+        paymentDocument.setCurrency(request.currency());
+
+        paymentDocumentRepository.save(paymentDocument);
+
+        return paymentDocument;
+
     }
 }

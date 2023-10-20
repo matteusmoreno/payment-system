@@ -14,17 +14,17 @@ public record PaymentDocumentDetailsResponse(
         LocalDate dateOfIssue,
         LocalDate dateOfPayment,
         BigDecimal amount,
-        PaymentCurrency currency,
-        PaymentType paymentType,
-        PaymentStatus status) {
+        String currency,
+        String paymentType,
+        String status) {
 
     public PaymentDocumentDetailsResponse(PaymentDocument paymentDocument) {
         this(paymentDocument.getId(),
                 paymentDocument.getDateOfIssue(),
                 paymentDocument.getDateOfPayment(),
                 paymentDocument.getAmount(),
-                paymentDocument.getCurrency(),
-                paymentDocument.getPaymentType(),
-                paymentDocument.getStatus());
+                paymentDocument.getCurrency().getDisplayName(),
+                paymentDocument.getPaymentType().getDisplayName(),
+                paymentDocument.getStatus().getDisplayName());
     }
 }
