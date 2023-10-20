@@ -3,6 +3,7 @@ package mgmgroup.paymentsystem.customer.service;
 import mgmgroup.paymentsystem.customer.CustomerRepository;
 import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,9 +12,12 @@ import java.time.LocalDateTime;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerUtils customerUtils;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, CustomerUtils customerUtils) {
         this.customerRepository = customerRepository;
+        this.customerUtils = customerUtils;
     }
 
     public Customer create(CreateCustomerRequest request) {
@@ -24,7 +28,7 @@ public class CustomerService {
         customer.setPhone(request.phone());
         customer.setBirthDate(request.birthDate());
         customer.setPaymentDocuments(null);
-        //age
+        customer.setAge(customerUtils.calculateAge(request.birthDate()));
         customer.setGender(request.gender());
         customer.setCpf(request.cpf());
         customer.setCep(request.cep());

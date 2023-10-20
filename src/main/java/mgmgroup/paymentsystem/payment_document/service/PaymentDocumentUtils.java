@@ -1,4 +1,4 @@
-package mgmgroup.paymentsystem.payment_document.utils;
+package mgmgroup.paymentsystem.payment_document.service;
 
 import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;

@@ -5,11 +5,9 @@ import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
-import mgmgroup.paymentsystem.payment_document.utils.PaymentDocumentUtils;
 import mgmgroup.paymentsystem.payment_document.validation.PaymentDocumentValidation;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
