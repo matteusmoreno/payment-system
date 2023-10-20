@@ -1,4 +1,4 @@
-package mgmgroup.paymentsystem.payment_document.validations;
+package mgmgroup.paymentsystem.payment_document.validation;
 
 import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.exception.PayException;

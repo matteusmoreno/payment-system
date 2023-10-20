@@ -5,7 +5,8 @@ import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
-import mgmgroup.paymentsystem.payment_document.validations.PaymentDocumentValidation;
+import mgmgroup.paymentsystem.payment_document.utils.PaymentDocumentUtils;
+import mgmgroup.paymentsystem.payment_document.validation.PaymentDocumentValidation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,20 +17,17 @@ public class PaymentDocumentService {
 
     private final PaymentDocumentRepository paymentDocumentRepository;
     private final PaymentDocumentValidation paymentDocumentValidation;
+    private final PaymentDocumentUtils paymentDocumentUtils;
 
-    public PaymentDocumentService(PaymentDocumentRepository paymentDocumentRepository, PaymentDocumentValidation paymentDocumentValidation) {
+    public PaymentDocumentService(PaymentDocumentRepository paymentDocumentRepository, PaymentDocumentValidation paymentDocumentValidation, PaymentDocumentUtils paymentDocumentUtils) {
         this.paymentDocumentRepository = paymentDocumentRepository;
         this.paymentDocumentValidation = paymentDocumentValidation;
+        this.paymentDocumentUtils = paymentDocumentUtils;
     }
 
     public PaymentDocument create(CreatePaymentDocumentRequest request) {
         PaymentDocument paymentDocument = new PaymentDocument();
-        paymentDocument.setDateOfIssue(LocalDate.now());
-        paymentDocument.setDateOfPayment(request.dateOfPayment());
-        paymentDocument.setAmount(request.amount());
-        paymentDocument.setPaymentType(request.paymentType());
-        paymentDocument.setCurrency(request.currency());
-        paymentDocument.setStatus(PaymentStatus.PENDING);
+        paymentDocumentUtils.settCreateAttributes(paymentDocument, request);
 
         paymentDocumentRepository.save(paymentDocument);
 
@@ -42,10 +40,7 @@ public class PaymentDocumentService {
 
     public PaymentDocument update(UpdatePaymentDocumentRequest request) {
         PaymentDocument paymentDocument = paymentDocumentRepository.findById(request.id()).orElseThrow();
-        paymentDocument.setDateOfPayment(request.dateOfPayment());
-        paymentDocument.setAmount(request.amount());
-        paymentDocument.setPaymentType(request.paymentType());
-        paymentDocument.setCurrency(request.currency());
+        paymentDocumentUtils.setUpdateAttributes(paymentDocument, request);
 
         paymentDocumentRepository.save(paymentDocument);
 
