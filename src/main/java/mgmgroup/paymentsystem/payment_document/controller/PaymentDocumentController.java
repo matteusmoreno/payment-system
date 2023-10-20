@@ -3,6 +3,7 @@ package mgmgroup.paymentsystem.payment_document.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
+import mgmgroup.paymentsystem.payment_document.request.IdPaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.PaymentDocumentDetailsRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
@@ -41,6 +42,13 @@ public class PaymentDocumentController {
     @Transactional
     public ResponseEntity update(@RequestBody @Valid UpdatePaymentDocumentRequest request) {
         var paymentDocument = paymentDocumentService.update(request);
+        return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
+
+    @PutMapping("/pay")
+    @Transactional
+    public ResponseEntity pay(@RequestBody @Valid IdPaymentDocumentRequest request) {
+        var paymentDocument = paymentDocumentService.pay(request.id());
         return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
     }
 }
