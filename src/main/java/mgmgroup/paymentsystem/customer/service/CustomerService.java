@@ -44,35 +44,7 @@ public class CustomerService {
     public Customer update(UpdateCustomerRequest request) {
         Customer customer = customerRepository.findById(request.id()).orElseThrow();
 
-        if (request.name() != null) {
-            customer.setName(request.name());
-        }
-
-        if (request.email() != null) {
-            customer.setEmail(request.email());
-        }
-
-        if (request.phone() != null) {
-            customer.setPhone(request.phone());
-        }
-
-        if (request.birthDate() != null) {
-            customer.setBirthDate(request.birthDate());
-            customer.setAge(customerUtils.calculateAge(request.birthDate()));
-        }
-
-        if (request.gender() != null) {
-            customer.setGender(request.gender());
-        }
-
-        if (request.cpf() != null) {
-            customer.setCpf(request.cpf());
-        }
-
-        if (request.cep() != null) {
-            customer.setCep(request.cep());
-            customerUtils.setAdressAttributes(customer, request.cep());
-        }
+        customerUtils.setUpdateAttributes(customer, request);
 
         customer.setUpdatedAt(LocalDateTime.now());
         customerRepository.save(customer);

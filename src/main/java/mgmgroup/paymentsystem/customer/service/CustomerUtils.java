@@ -3,6 +3,7 @@ package mgmgroup.paymentsystem.customer.service;
 import mgmgroup.paymentsystem.customer.client.ViaCepClient;
 import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
+import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,5 +53,37 @@ public class CustomerUtils {
         customer.setUpdatedAt(null);
         customer.setDeletedAt(null);
         customer.setActive(true);
+    }
+
+    public void setUpdateAttributes(Customer customer, UpdateCustomerRequest request) {
+        if (request.name() != null) {
+            customer.setName(request.name());
+        }
+
+        if (request.email() != null) {
+            customer.setEmail(request.email());
+        }
+
+        if (request.phone() != null) {
+            customer.setPhone(request.phone());
+        }
+
+        if (request.birthDate() != null) {
+            customer.setBirthDate(request.birthDate());
+            customer.setAge(calculateAge(request.birthDate()));
+        }
+
+        if (request.gender() != null) {
+            customer.setGender(request.gender());
+        }
+
+        if (request.cpf() != null) {
+            customer.setCpf(request.cpf());
+        }
+
+        if (request.cep() != null) {
+            customer.setCep(request.cep());
+            setAdressAttributes(customer, request.cep());
+        }
     }
 }
