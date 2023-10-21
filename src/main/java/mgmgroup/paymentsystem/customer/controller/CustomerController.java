@@ -2,17 +2,15 @@ package mgmgroup.paymentsystem.customer.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.IdCustomerRequest;
+import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
 import mgmgroup.paymentsystem.customer.response.CustomerDetailsResponse;
 import mgmgroup.paymentsystem.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/customer")
@@ -36,6 +34,13 @@ public class CustomerController {
     @GetMapping("/details")
     public ResponseEntity details(@RequestBody @Valid IdCustomerRequest request) {
         var customer = customerService.details(request.id());
+        return ResponseEntity.ok(new CustomerDetailsResponse(customer));
+    }
+
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid UpdateCustomerRequest request) {
+        var customer = customerService.update(request);
         return ResponseEntity.ok(new CustomerDetailsResponse(customer));
     }
 }

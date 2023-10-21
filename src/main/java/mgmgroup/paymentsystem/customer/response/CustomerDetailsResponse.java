@@ -1,10 +1,8 @@
 package mgmgroup.paymentsystem.customer.response;
 
 import mgmgroup.paymentsystem.customer.domain.Customer;
-import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 public record CustomerDetailsResponse(
