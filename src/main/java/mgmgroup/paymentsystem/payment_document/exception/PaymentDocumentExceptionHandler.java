@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class GolbalExceptionHandler {
+public class PaymentDocumentExceptionHandler {
 
     @ExceptionHandler(PayException.class)
     public ResponseEntity<String> handlePayException(PayException e) {
