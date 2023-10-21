@@ -2,12 +2,13 @@ package mgmgroup.paymentsystem.payment_document.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import mgmgroup.paymentsystem.payment_document.PaymentDocumentRepository;
 import mgmgroup.paymentsystem.payment_document.request.SetPaymentDocumentRequest;
-import mgmgroup.paymentsystem.customer.response.CustomerDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.IdPaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.PaymentDocumentDetailsRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
+import mgmgroup.paymentsystem.payment_document.response.ListPaymentDocumentResponse;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsWithCostumerResponse;
 import mgmgroup.paymentsystem.payment_document.service.PaymentDocumentService;
@@ -18,6 +19,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/payment_document")
@@ -48,6 +51,13 @@ public class PaymentDocumentController {
     public ResponseEntity details(@RequestBody @Valid PaymentDocumentDetailsRequest request) {
         var paymentDocument = paymentDocumentService.details(request.id());
         return ResponseEntity.ok(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<ListPaymentDocumentResponse>> list(@PageableDefault(sort = {"dateOfPayment"}) Pageable pageable) {
+        var page = paymentDocumentService.listAll(pageable);
+
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping("/update")
