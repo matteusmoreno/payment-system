@@ -6,8 +6,12 @@ import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.IdCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
 import mgmgroup.paymentsystem.customer.response.CustomerDetailsResponse;
+import mgmgroup.paymentsystem.customer.response.ListCustomerResponse;
 import mgmgroup.paymentsystem.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,6 +39,13 @@ public class CustomerController {
     public ResponseEntity details(@RequestBody @Valid IdCustomerRequest request) {
         var customer = customerService.details(request.id());
         return ResponseEntity.ok(new CustomerDetailsResponse(customer));
+    }
+
+    @GetMapping("list")
+    public ResponseEntity<Page<ListCustomerResponse>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        var page = customerService.listAll(pageable);
+
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping("/update")

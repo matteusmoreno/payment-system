@@ -4,9 +4,12 @@ import mgmgroup.paymentsystem.customer.CustomerRepository;
 import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
+import mgmgroup.paymentsystem.customer.response.ListCustomerResponse;
 import mgmgroup.paymentsystem.customer.validation.CustomerValidation;
 import mgmgroup.paymentsystem.payment_document.PaymentDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -62,5 +65,9 @@ public class CustomerService {
         customerRepository.save(customer);
 
         return customer;
+    }
+
+    public Page<ListCustomerResponse> listAll(Pageable pageable) {
+        return customerRepository.findAll(pageable).map(ListCustomerResponse::new);
     }
 }
