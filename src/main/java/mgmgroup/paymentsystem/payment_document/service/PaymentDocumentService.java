@@ -8,7 +8,10 @@ import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
+import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.validation.PaymentDocumentValidation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -91,4 +94,5 @@ public class PaymentDocumentService {
 
         return paymentDocument;
     }
+
 }

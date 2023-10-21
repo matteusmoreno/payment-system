@@ -55,4 +55,12 @@ public class CustomerService {
     }
 
 
+    public Customer desactivate(UUID id) {
+        Customer customer = customerRepository.findById(id).orElseThrow();
+        customer.setActive(false);
+
+        customerRepository.save(customer);
+
+        return customer;
+    }
 }

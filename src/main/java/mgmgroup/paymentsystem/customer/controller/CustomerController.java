@@ -44,5 +44,12 @@ public class CustomerController {
         return ResponseEntity.ok(new CustomerDetailsResponse(customer));
     }
 
+    @DeleteMapping("/desactivate")
+    @Transactional
+    public ResponseEntity desactivate(@RequestBody @Valid IdCustomerRequest request) {
+        var customer = customerService.desactivate(request.id());
+        return ResponseEntity.ok(new CustomerDetailsResponse(customer));
+    }
+
 
 }

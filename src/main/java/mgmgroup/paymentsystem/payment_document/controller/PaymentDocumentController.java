@@ -11,6 +11,10 @@ import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequ
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsWithCostumerResponse;
 import mgmgroup.paymentsystem.payment_document.service.PaymentDocumentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,7 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PaymentDocumentController {
 
     private final PaymentDocumentService paymentDocumentService;
-
+    @Autowired
     public PaymentDocumentController(PaymentDocumentService paymentDocumentService) {
         this.paymentDocumentService = paymentDocumentService;
     }

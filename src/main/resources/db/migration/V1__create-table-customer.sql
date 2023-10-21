@@ -10,7 +10,7 @@ CREATE TABLE customer (
     cep VARCHAR(10),
     state VARCHAR(50),
     city VARCHAR(50),
-    neighborhood VARCHAR(50),
+    neighborhood VARCHAR(150),
     created_at DATETIME,
     updated_at DATETIME,
     deleted_at DATETIME,
