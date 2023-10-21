@@ -11,4 +11,9 @@ public class CustomerExceptionHandler {
     public ResponseEntity<String> handleInvalidCpfException(InvalidCpfException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidCepException.class)
+    public ResponseEntity<String> handleInvalidCepException(InvalidCepException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }

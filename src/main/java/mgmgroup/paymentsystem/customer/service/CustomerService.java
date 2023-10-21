@@ -27,6 +27,7 @@ public class CustomerService {
 
     public Customer create(CreateCustomerRequest request) {
         customerValidation.isCpfValid(request.cpf()); // VALIDA O CPF
+        customerValidation.isCepValid(request.cep()); // VALIDA O CEP
 
         Customer customer = new Customer();
         customerUtils.setCreateAttributes(customer, request);
@@ -41,8 +42,6 @@ public class CustomerService {
     }
 
     public Customer update(UpdateCustomerRequest request) {
-        customerValidation.isCpfValid(request.cpf()); // VALIDA O CPF
-
         Customer customer = customerRepository.findById(request.id()).orElseThrow();
         customerUtils.setUpdateAttributes(customer, request);
 

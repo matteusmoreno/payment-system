@@ -4,6 +4,7 @@ import mgmgroup.paymentsystem.customer.client.ViaCepClient;
 import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
+import mgmgroup.paymentsystem.customer.validation.CustomerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +16,12 @@ import java.time.Period;
 public class CustomerUtils {
 
     private final ViaCepClient viaCepClient;
+    private final CustomerValidation customerValidation;
 
     @Autowired
-    public CustomerUtils(ViaCepClient viaCepClient) {
+    public CustomerUtils(ViaCepClient viaCepClient, CustomerValidation customerValidation) {
         this.viaCepClient = viaCepClient;
+        this.customerValidation = customerValidation;
     }
 
     public int calculateAge(LocalDate birthDate) {
@@ -78,10 +81,12 @@ public class CustomerUtils {
         }
 
         if (request.cpf() != null) {
+            customerValidation.isCpfValid(request.cpf()); // VALIDA O CPF
             customer.setCpf(request.cpf());
         }
 
         if (request.cep() != null) {
+            customerValidation.isCepValid(request.cep()); // VALIDA O CEP
             customer.setCep(request.cep());
             setAdressAttributes(customer, request.cep());
         }

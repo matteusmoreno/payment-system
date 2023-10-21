@@ -1,10 +1,18 @@
 package mgmgroup.paymentsystem.customer.validation;
 
+import mgmgroup.paymentsystem.customer.client.ViaCepClient;
+import mgmgroup.paymentsystem.customer.exception.InvalidCepException;
 import mgmgroup.paymentsystem.customer.exception.InvalidCpfException;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerValidation {
+
+    private final ViaCepClient viaCepClient;
+
+    public CustomerValidation(ViaCepClient viaCepClient) {
+        this.viaCepClient = viaCepClient;
+    }
 
     public void isCpfValid(String cpf) {
         // Remove caracteres de formatação (pontos e traço)
@@ -42,5 +50,13 @@ public class CustomerValidation {
         if (secondDigit != Character.getNumericValue(cpf.charAt(10))) {
             throw new InvalidCpfException();
         }
+    }
+
+    public void isCepValid(String cep) {
+        var adress = viaCepClient.getAdress(cep);
+        if (adress.bairro() == null || adress.localidade() == null || adress.uf() == null) {
+            throw new InvalidCepException();
+        }
+
     }
 }
