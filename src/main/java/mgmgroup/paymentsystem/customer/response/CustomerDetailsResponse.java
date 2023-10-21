@@ -1,8 +1,10 @@
 package mgmgroup.paymentsystem.customer.response;
 
 import mgmgroup.paymentsystem.customer.domain.Customer;
+import mgmgroup.paymentsystem.payment_document.domain.PaymentDocument;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public record CustomerDetailsResponse(
@@ -14,7 +16,6 @@ public record CustomerDetailsResponse(
         int age,
         String gender,
         String cpf,
-//        List<PaymentDocument> paymentDocuments,
         String cep,
         String state,
         String city,
@@ -34,7 +35,6 @@ public record CustomerDetailsResponse(
                 customer.getAge(),
                 customer.getGender().getDisplayName(),
                 customer.getCpf(),
-//                customer.getPaymentDocuments(),
                 customer.getCep(),
                 customer.getState(),
                 customer.getCity(),

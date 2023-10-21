@@ -30,7 +30,7 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String cpf;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<PaymentDocument> paymentDocuments;
     private String cep;
     private String state;

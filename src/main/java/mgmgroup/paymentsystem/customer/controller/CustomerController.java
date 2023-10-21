@@ -43,4 +43,6 @@ public class CustomerController {
         var customer = customerService.update(request);
         return ResponseEntity.ok(new CustomerDetailsResponse(customer));
     }
+
+
 }

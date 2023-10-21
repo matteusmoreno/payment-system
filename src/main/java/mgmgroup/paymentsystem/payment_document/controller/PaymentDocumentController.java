@@ -2,17 +2,18 @@ package mgmgroup.paymentsystem.payment_document.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import mgmgroup.paymentsystem.payment_document.request.SetPaymentDocumentRequest;
+import mgmgroup.paymentsystem.customer.response.CustomerDetailsResponse;
 import mgmgroup.paymentsystem.payment_document.request.CreatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.IdPaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.request.PaymentDocumentDetailsRequest;
 import mgmgroup.paymentsystem.payment_document.request.UpdatePaymentDocumentRequest;
 import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsResponse;
+import mgmgroup.paymentsystem.payment_document.response.PaymentDocumentDetailsWithCostumerResponse;
 import mgmgroup.paymentsystem.payment_document.service.PaymentDocumentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/payment_document")
@@ -30,6 +31,13 @@ public class PaymentDocumentController {
         var paymentDocument = paymentDocumentService.create(request);
         var uri = uriBuilder.path("/payment_document/details/{id}").buildAndExpand(paymentDocument.getId()).toUri();
         return ResponseEntity.created(uri).body(new PaymentDocumentDetailsResponse(paymentDocument));
+    }
+
+    @PostMapping("/set-payment-document")
+    @Transactional
+    public ResponseEntity setPaymentDocument(@RequestBody @Valid SetPaymentDocumentRequest request) {
+        var paymentDocument = paymentDocumentService.setPaymentDocument(request);
+        return ResponseEntity.ok(new PaymentDocumentDetailsWithCostumerResponse(paymentDocument));
     }
 
     @GetMapping("/details")

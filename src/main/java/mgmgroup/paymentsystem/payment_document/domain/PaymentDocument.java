@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.payment_document.constants.PaymentCurrency;
 import mgmgroup.paymentsystem.payment_document.constants.PaymentStatus;
 import mgmgroup.paymentsystem.payment_document.constants.PaymentType;
@@ -25,6 +26,9 @@ public class PaymentDocument {
     private LocalDate dateOfIssue;
     private LocalDate dateOfPayment;
     private BigDecimal amount;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
     @Enumerated(EnumType.STRING)

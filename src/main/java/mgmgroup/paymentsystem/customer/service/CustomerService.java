@@ -5,6 +5,7 @@ import mgmgroup.paymentsystem.customer.domain.Customer;
 import mgmgroup.paymentsystem.customer.request.CreateCustomerRequest;
 import mgmgroup.paymentsystem.customer.request.UpdateCustomerRequest;
 import mgmgroup.paymentsystem.customer.validation.CustomerValidation;
+import mgmgroup.paymentsystem.payment_document.PaymentDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,14 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerUtils customerUtils;
     private final CustomerValidation customerValidation;
+    private final PaymentDocumentRepository paymentDocumentRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, CustomerUtils customerUtils, CustomerValidation customerValidation) {
+    public CustomerService(CustomerRepository customerRepository, CustomerUtils customerUtils, CustomerValidation customerValidation, PaymentDocumentRepository paymentDocumentRepository) {
         this.customerRepository = customerRepository;
         this.customerUtils = customerUtils;
         this.customerValidation = customerValidation;
+        this.paymentDocumentRepository = paymentDocumentRepository;
     }
 
     public Customer create(CreateCustomerRequest request) {
@@ -50,4 +53,6 @@ public class CustomerService {
 
         return customer;
     }
+
+
 }
