@@ -1,4 +1,4 @@
-# Sistema de Pagamento - Sistema de Gerenciamento de Pagamentos
+# Sistema de Pagamento - Gerenciamento de Pagamentos
 
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen)](https://spring.io/projects/spring-boot)
 [![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2022.0.4-brightgreen)](https://spring.io/projects/spring-cloud)
